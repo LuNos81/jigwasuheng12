@@ -214,7 +214,7 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
   .pip{width:46%;top:42px;padding:7px 7px 8px;border-radius:16px}
   .pip-what{font-size:12.5px;margin-bottom:4px}
   .pip-big{font-size:13.5px;margin-top:5px}
-  .stage.mode-story .fp-say{top:36px;bottom:auto;left:50%;transform:translateX(-50%);text-align:center;padding:8px 12px;width:calc(100% - 24px)}
+  .stage.mode-story .fp-say{top:52px;bottom:auto;left:50%;transform:translateX(-50%);text-align:center;padding:8px 12px;width:calc(100% - 24px)}
   .mode-story .fp-say b{font-size:16px}
   .mode-story .fp-say span{display:none}
   .scard{left:12px;bottom:12px;width:calc(100% - 24px);padding:14px 15px}
@@ -223,6 +223,59 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
   .story-foot .btn{font-size:15px;padding:7px 12px}
 }
 @media (prefers-reduced-motion: reduce){.startbtn,.modebtn.edu{animation:none}.dip.go{animation:none}}
+
+/* ===== 피드백 반영: 타임라인 · 위치 지도 · 일직선 강조 · 용어 ===== */
+.seg{display:flex;padding:3px;border-radius:12px;background:var(--card)}
+.seg button{font-family:var(--f-cute);font-size:14px;padding:6px 11px;border-radius:9px;border:0;background:transparent;color:var(--soft);cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--ink);color:#2c2448}
+.tlbox{flex:1 0 100%;min-width:0;padding:2px 4px 0}
+.tlbox.instory{position:absolute;left:calc(max(16px, env(safe-area-inset-left, 0px)) + min(540px, calc(100% - 32px)) + 14px);right:max(16px, env(safe-area-inset-right, 0px));bottom:16px;padding:12px 14px 8px;border-radius:20px;background:rgba(28,34,80,.95);border:2px solid var(--line)}
+.tl-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 12px;margin-bottom:4px}
+.tl-head b{font-family:var(--f-cute);font-weight:400;font-size:15px}
+.tl-leg{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;font-size:12.5px;color:var(--soft)}
+.tl-leg i{display:inline-block;vertical-align:-1px;margin-right:4px}
+.tl-leg .band{width:16px;height:8px;border-radius:3px;background:rgba(255,201,74,.55)}
+.tl-leg .dot{width:9px;height:9px;border-radius:50%}
+.tl-leg .dot.sol{background:var(--sun)} .tl-leg .dot.lun{background:var(--boom)}
+.tl-track{position:relative;height:46px}
+.tl-track canvas{position:absolute;inset:0;width:100%;height:100%}
+#scrub{position:absolute;inset:0;width:100%;height:30px;margin:0;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer}
+#scrub:disabled{pointer-events:none}
+#scrub::-webkit-slider-runnable-track{height:30px;background:transparent}
+#scrub::-moz-range-track{height:30px;background:transparent}
+#scrub::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:30px;background:transparent}
+#scrub::-moz-range-thumb{width:14px;height:30px;border:0;background:transparent}
+.minibox{position:absolute;top:44px;right:max(16px, env(safe-area-inset-right, 0px));width:min(250px,30%);padding:8px 8px 6px;border-radius:18px;background:rgba(20,26,60,.92);border:2px solid var(--line);pointer-events:none}
+.minibox p{margin:0 0 4px 4px;font-family:var(--f-cute);font-size:14px;color:var(--soft)}
+#miniCv{display:block;width:100%;aspect-ratio:5/4;max-width:100%;border-radius:12px}
+.mode-explore .minibox{top:16px}
+.flash{position:absolute;inset:0;pointer-events:none;opacity:0;background:radial-gradient(60% 60% at 50% 50%, rgba(255,226,140,.0) 0%, rgba(255,214,110,.35) 70%, rgba(255,190,80,.6) 100%)}
+.flash.go{animation:goldflash 1s ease-out}
+@keyframes goldflash{0%{opacity:1}100%{opacity:0}}
+.fp-say.pop{animation:pop .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop{0%{transform:translateX(-50%) scale(.82)}100%{transform:translateX(-50%) scale(1)}}
+.stage:not(.fp) .fp-say.pop{animation:pop2 .6s cubic-bezier(.3,1.6,.5,1)}
+@keyframes pop2{0%{transform:scale(.82)}100%{transform:scale(1)}}
+.gloss{list-style:none;margin:0 0 18px;padding:10px 12px;border-radius:16px;background:rgba(255,249,236,.06);display:grid;gap:6px;font-size:13.5px;line-height:1.45;color:var(--soft)}
+.gloss li{display:grid;grid-template-columns:12px auto minmax(0,1fr);gap:8px;align-items:baseline}
+.gloss i{width:11px;height:11px;border-radius:50%;align-self:center}
+.gloss b{font-family:var(--f-cute);font-weight:400;font-size:15px;color:var(--ink);white-space:nowrap}
+.panel .gloss{margin:0}
+@media (max-width:900px){
+  .tlbox.instory{left:12px;right:12px;bottom:auto;top:92px;padding:8px 10px 4px}
+}
+@media (max-width:640px){
+  .minibox{top:104px;width:46%}
+  .tlbox.instory{top:104px}
+  .stage.mode-explore:not(.fp) .fp-say{top:104px;bottom:auto}
+  .mode-explore .minibox{top:60px}
+  .gloss{font-size:12.5px;margin-bottom:12px;padding:8px 10px}
+  .gloss b{font-size:14px}
+  .tl-leg{font-size:11.5px}
+}
+@media (max-width:640px){.stage.mode-story .fp-say.pop{animation-name:pop}}
+@media (max-width:560px){.stage:not(.fp) .fp-say.pop{animation-name:pop}}
+@media (prefers-reduced-motion: reduce){.flash.go,.fp-say.pop,.stage:not(.fp) .fp-say.pop{animation:none}}
 </style>
 </head>
 <body>
@@ -231,10 +284,13 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
     <canvas id="gl" aria-label="해, 지구, 달과 두 길(황도면·백도면)이 있는 3D 장면. 드래그해서 돌려 볼 수 있어요"></canvas>
     <canvas id="mainObs" class="mainobs" hidden aria-label="지구에 선 사람이 해를 올려다본 하늘"></canvas>
     <div class="dip" id="dip"></div>
+    <div class="flash" id="flash"></div>
+    <div class="minibox" id="miniBox" hidden><p>한눈에 보는 위치</p><canvas id="miniCv" aria-label="위와 옆에서 본 해·지구·달의 위치"></canvas></div>
     <p class="note">모양, 크기, 기울기는 보기 쉽게 과장했어요</p>
     <div class="views" role="group" aria-label="보는 방향">
       <button data-view="side" class="on">옆에서</button>
       <button data-view="tilt">비스듬히</button>
+      <button data-view="space">우주에서</button>
       <button id="autoCam" class="auto on" aria-pressed="true">자동 카메라</button>
     </div>
     <button class="fpbtn" id="fpBtn" aria-pressed="false">달에 서서 보기</button>
@@ -244,7 +300,11 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
     <div class="fp-say" id="fpSay" hidden><b id="fpBig"></b><span id="fpCap"></span></div>
     <div class="sunhint" id="sunHint" hidden>← 해 쪽</div>
     <p class="camtag" id="camTag" hidden></p>
-    <div class="ctrl">
+    <div class="ctrl" id="ctrl">
+      <div class="tlbox" id="tlBox" hidden>
+        <div class="tl-head"><b id="tlYear">1월 ~ 12월</b><span class="tl-leg"><span><i class="band"></i>식이 일어날 수 있는 시기</span><span><i class="dot sol"></i>일식</span><span><i class="dot lun"></i>월식</span></span></div>
+        <div class="tl-track"><canvas id="tlc"></canvas><input type="range" id="scrub" min="0" max="365.24" step="0.01" value="0" aria-label="1년 중 날짜 고르기"></div>
+      </div>
       <button class="play" id="play" aria-label="멈추기"><svg viewBox="0 0 16 16" id="playIcon"><rect x="3" y="2" width="3.5" height="12" rx="1.5"/><rect x="9.5" y="2" width="3.5" height="12" rx="1.5"/></svg></button>
       <span class="date" id="dateTxt">1월 1일</span>
       <div class="path" role="group" aria-label="달의 길">
@@ -252,6 +312,7 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
         <button data-inc="0">평평하게</button>
         <button data-inc="5.1" class="on">기울게 (진짜)</button>
       </div>
+      <div class="seg" id="speedSeg" role="group" aria-label="빠르기"><button data-sp="2.5" class="on">보통</button><button data-sp="12">1년 빠르게</button></div>
       <button class="btn primary" id="openDrawer">장면 골라 열기</button>
       <button class="btn" id="toIdleBtn">처음 화면</button>
     </div>
@@ -260,8 +321,13 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
       <p class="eyebrow">황도·백도 식 관측기</p>
       <h1>일식과 월식은 왜 매달 일어나지 않을까?</h1>
       <p class="lead">달은 한 달에 한 번 해 앞을 지나고, 한 번 지구 뒤로 가요. 그런데 일식과 월식은 1년에 몇 번뿐이에요. 그 비밀은 두 길의 기울기에 있어요!</p>
+      <ul class="gloss" aria-label="용어 풀이">
+        <li><i style="background:var(--ecl)"></i><b>황도면</b><span>지구가 해 둘레를 도는 길이 만드는 평평한 판 (노란 판)</span></li>
+        <li><i style="background:var(--lun)"></i><b>백도면</b><span>달이 지구 둘레를 도는 길이 만드는 판 (하늘색 판)</span></li>
+        <li><i style="background:var(--node)"></i><b>교점</b><span>두 판이 만나는 곳 (분홍 점과 분홍 선)</span></li>
+      </ul>
       <div class="modes">
-        <button class="modebtn edu" id="startBtn"><b>▶ 교육 모드</b><small>4단계로 차근차근 보여 줘요</small></button>
+        <button class="modebtn edu" id="startBtn"><b>▶ 교육 모드</b><small>5단계로 차근차근 보여 줘요</small></button>
         <button class="modebtn free" id="exploreBtn"><b>자유 모드</b><small>직접 돌려 보고 장면을 골라요</small></button>
       </div>
     </section>
@@ -288,6 +354,11 @@ h1{margin:2px 0 0;font-family:var(--f-cute);font-weight:400;font-size:29px;line-
       <h2>자유 모드</h2>
       <button class="xbtn" id="closeDrawer">✕ 닫기</button>
     </header>
+    <ul class="gloss" aria-label="용어 풀이">
+      <li><i style="background:var(--ecl)"></i><b>황도면</b><span>지구가 해 둘레를 도는 길이 만드는 평평한 판</span></li>
+      <li><i style="background:var(--lun)"></i><b>백도면</b><span>달이 지구 둘레를 도는 길이 만드는 판</span></li>
+      <li><i style="background:var(--node)"></i><b>교점</b><span>두 판이 만나는 곳</span></li>
+    </ul>
 
     <section class="card scene" id="sceneCard">
       <h2>장면 골라 열기</h2>
@@ -436,18 +507,31 @@ function drawFace(g, x, y, r, mood, ink) {
   }
   g.restore();
 }
+// 공처럼 보이게: 왼쪽 위 빛, 오른쪽 아래 그늘, 반짝이는 점
+function ballShade(g, x, y, r, dark, light) {
+  const sh = g.createRadialGradient(x - r * .38, y - r * .42, r * .05, x - r * .1, y - r * .1, r * 1.12);
+  sh.addColorStop(0, `rgba(255,255,255,${light})`); sh.addColorStop(.42, 'rgba(255,255,255,0)');
+  sh.addColorStop(.72, 'rgba(0,0,0,0)'); sh.addColorStop(1, dark);
+  g.fillStyle = sh; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.fillStyle = `rgba(255,255,255,${light * .9})`; g.beginPath(); g.ellipse(x - r * .42, y - r * .48, r * .16, r * .09, -.6, 0, 7); g.fill();
+}
 function drawSunArt(g, x, y, r, mood) {
   g.save();
-  g.fillStyle = '#ffd25c';
+  const glow = g.createRadialGradient(x, y, r * .8, x, y, r * 1.9);
+  glow.addColorStop(0, 'rgba(255,200,90,.45)'); glow.addColorStop(1, 'rgba(255,170,60,0)');
+  g.fillStyle = glow; g.beginPath(); g.arc(x, y, r * 1.9, 0, 7); g.fill();
   for (let k = 0; k < 12; k++) {
     const a = k * Math.PI / 6, a1 = a - 0.16, a2 = a + 0.16;
-    g.beginPath(); g.moveTo(x + Math.cos(a1) * r * 1.05, y + Math.sin(a1) * r * 1.05);
+    const rg = g.createLinearGradient(x + Math.cos(a) * r, y + Math.sin(a) * r, x + Math.cos(a) * r * 1.45, y + Math.sin(a) * r * 1.45);
+    rg.addColorStop(0, '#ff9f2e'); rg.addColorStop(1, '#ffe27a'); g.fillStyle = rg;
+    g.beginPath(); g.moveTo(x + Math.cos(a1) * r * 1.02, y + Math.sin(a1) * r * 1.02);
     g.lineTo(x + Math.cos(a) * r * 1.45, y + Math.sin(a) * r * 1.45);
-    g.lineTo(x + Math.cos(a2) * r * 1.05, y + Math.sin(a2) * r * 1.05); g.closePath(); g.fill();
+    g.lineTo(x + Math.cos(a2) * r * 1.02, y + Math.sin(a2) * r * 1.02); g.closePath(); g.fill();
   }
-  const gr = g.createRadialGradient(x - r * .3, y - r * .3, r * .1, x, y, r);
-  gr.addColorStop(0, '#fff0a6'); gr.addColorStop(1, '#ffb63a');
+  const gr = g.createRadialGradient(x - r * .3, y - r * .32, r * .05, x, y, r);
+  gr.addColorStop(0, '#fff8cf'); gr.addColorStop(.45, '#ffd45a'); gr.addColorStop(.85, '#ffa630'); gr.addColorStop(1, '#f2801f');
   g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.55)'; g.beginPath(); g.ellipse(x - r * .42, y - r * .48, r * .17, r * .09, -.6, 0, 7); g.fill();
   g.restore();
   drawFace(g, x, y, r, mood || 'happy');
 }
@@ -458,16 +542,23 @@ function drawEarthArt(g, x, y, r, mood, night) {
   [[-.55,-.45,.38,.26],[.45,-.55,.3,.2],[-.2,.55,.42,.24],[.65,.3,.26,.34],[-.75,.15,.2,.28]].forEach(b => { g.beginPath(); g.ellipse(x + b[0] * r, y + b[1] * r, b[2] * r, b[3] * r, R() * 2, 0, 7); g.fill(); });
   g.fillStyle = 'rgba(255,255,255,.75)';
   [[-.1,-.78,.35,.08],[.3,.75,.3,.07],[-.6,.42,.18,.06]].forEach(b => { g.beginPath(); g.ellipse(x + b[0] * r, y + b[1] * r, b[2] * r, b[3] * r, 0, 0, 7); g.fill(); });
+  ballShade(g, x, y, r, 'rgba(8,24,70,.55)', night ? .12 : .45);
   if (night) { g.fillStyle = `rgba(16,20,52,${night})`; g.fillRect(x - r, y - r, 2 * r, 2 * r); }
   g.restore();
-  g.strokeStyle = 'rgba(30,70,140,.6)'; g.lineWidth = Math.max(1, r * 0.04); g.beginPath(); g.arc(x, y, r, 0, 7); g.stroke();
+  g.save(); g.shadowColor = 'rgba(120,200,255,.9)'; g.shadowBlur = r * .25;
+  g.strokeStyle = 'rgba(150,215,255,.7)'; g.lineWidth = Math.max(1, r * 0.05); g.beginPath(); g.arc(x, y, r, 0, 7); g.stroke(); g.restore();
   drawFace(g, x, y + r * 0.05, r * 0.9, night > 0.6 ? 'night' : mood, night > 0.6 ? 'rgba(200,210,255,.55)' : undefined);
 }
 function drawMoonArt(g, x, y, r, mood, red, dark) {
   g.save(); g.beginPath(); g.arc(x, y, r, 0, 7); g.clip();
   g.fillStyle = dark ? '#262b52' : red ? '#ff8f6b' : '#f6edc8'; g.fillRect(x - r, y - r, 2 * r, 2 * r);
   g.fillStyle = dark ? '#20244a' : red ? '#e9704f' : '#e6d9a8';
-  [[-.5,-.45,.17],[.5,-.2,.12],[.25,.6,.15],[-.6,.45,.1],[.65,.5,.08]].forEach(c => { g.beginPath(); g.arc(x + c[0] * r, y + c[1] * r, c[2] * r, 0, 7); g.fill(); });
+  [[-.5,-.45,.17],[.5,-.2,.12],[.25,.6,.15],[-.6,.45,.1],[.65,.5,.08]].forEach(c => {
+    g.beginPath(); g.arc(x + c[0] * r, y + c[1] * r, c[2] * r, 0, 7); g.fill();
+    g.save(); g.strokeStyle = dark ? 'rgba(255,255,255,.05)' : 'rgba(255,255,255,.55)'; g.lineWidth = c[2] * r * .25;
+    g.beginPath(); g.arc(x + c[0] * r, y + c[1] * r, c[2] * r * .85, Math.PI * .1, Math.PI * .9); g.stroke(); g.restore();
+  });
+  ballShade(g, x, y, r, dark ? 'rgba(0,0,20,.4)' : red ? 'rgba(90,10,0,.5)' : 'rgba(90,70,30,.45)', dark ? .08 : .5);
   g.restore();
   drawFace(g, x, y, r, dark ? 'night' : mood, dark ? 'rgba(160,170,230,.6)' : undefined);
 }
@@ -490,20 +581,123 @@ const camera = new THREE.PerspectiveCamera(45, 1, 0.05, 3000);
 }
 const sprite = (map, size) => { const s = new THREE.Sprite(new THREE.SpriteMaterial({ map, transparent: true, depthWrite: false })); s.scale.set(size, size, 1); return s; };
 
-// 해 · 지구 · 달 스프라이트 (표정이 바뀜)
-const sunTex = texFrom(256, (g, S) => drawSunArt(g, S / 2, S / 2, S * 0.33, 'happy'));
-const sun = sprite(sunTex, SUN_R * 2 * (128 / (256 * 0.33))); scene.add(sun);
-const earthTex = { happy: texFrom(256, (g, S) => drawEarthArt(g, S / 2, S / 2, S * 0.46, 'happy', 0)), wow: texFrom(256, (g, S) => drawEarthArt(g, S / 2, S / 2, S * 0.46, 'wow', 0)) };
-const earth = sprite(earthTex.happy, R_E * 2 / 0.92 * 1.15); scene.add(earth);
-const moonTex = {
-  happy: texFrom(256, (g, S) => drawMoonArt(g, S / 2, S / 2, S * 0.46, 'happy')),
-  oops: texFrom(256, (g, S) => drawMoonArt(g, S / 2, S / 2, S * 0.46, 'oops')),
-  wow: texFrom(256, (g, S) => drawMoonArt(g, S / 2, S / 2, S * 0.46, 'wow')),
-  red: texFrom(256, (g, S) => drawMoonArt(g, S / 2, S / 2, S * 0.46, 'sleepy', true)),
-  sleepy: texFrom(256, (g, S) => drawMoonArt(g, S / 2, S / 2, S * 0.46, 'sleepy'))
-};
-const moon = sprite(moonTex.happy, R_M * 2 / 0.92 * 1.35); scene.add(moon);
-moon.renderOrder = 5; earth.renderOrder = 4;
+// ---------- 입체 캐릭터: 빛을 받는 공 + 공 표면에 그린 얼굴 ----------
+const RIM_VS = 'varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }';
+function rimMat(color, power, strength, reach) {   // 공 둘레로 부드럽게 퍼지는 빛(대기·코로나)
+  return new THREE.ShaderMaterial({
+    uniforms: { c: { value: new THREE.Color(color) }, p: { value: power }, s: { value: strength }, k: { value: reach || 2.0 }, o: { value: 1 } },
+    vertexShader: RIM_VS, side: THREE.BackSide,
+    fragmentShader: 'uniform vec3 c; uniform float p; uniform float s; uniform float k; uniform float o; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(clamp(-dot(vN, vV) * k, 0.0, 1.0), p) * s * o; gl_FragColor = vec4(c * f, f); }',
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false });
+}
+const FACES = ['happy', 'wow', 'oops', 'sleepy', 'night'];
+function faceTextures(ink) {   // 공 표면용(가로 2:1) 얼굴 그림
+  const o = {};
+  FACES.forEach(m => {
+    const c = document.createElement('canvas'); c.width = 512; c.height = 256;
+    drawFace(c.getContext('2d'), 128, 132, 64, m, m === 'night' ? 'rgba(210,220,255,.75)' : ink);
+    o[m] = new THREE.CanvasTexture(c); o[m].anisotropy = 4;
+  });
+  return o;
+}
+function faceShell(radius, ink) {
+  const tex = faceTextures(ink);
+  const m = new THREE.Mesh(new THREE.SphereGeometry(radius * 1.012, 48, 32),
+    new THREE.MeshLambertMaterial({ map: tex.happy, transparent: true, depthWrite: false, emissive: 0xffffff, emissiveMap: tex.happy, emissiveIntensity: 0.72 }));
+  m.userData = { tex, mood: 'happy' }; m.renderOrder = 3;
+  return m;
+}
+function setMood(shell, mood) {
+  if (shell.userData.mood === mood) return;
+  shell.userData.mood = mood; const tx = shell.userData.tex[mood];
+  shell.material.map = tx; shell.material.emissiveMap = tx; shell.material.needsUpdate = true;
+}
+function faceToward(shell, cam) { shell.quaternion.copy(cam.quaternion); if (shell.parent) shell.quaternion.premultiply(shell.parent.getWorldQuaternion(new THREE.Quaternion()).invert()); }
+function canvasTex(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const tx = new THREE.CanvasTexture(c); tx.anisotropy = 4; return tx; }
+
+// 지구 겉모습(펼친 지도)
+const earthMap = canvasTex(1024, 512, (g, W, H) => {
+  const oc = g.createLinearGradient(0, 0, 0, H); oc.addColorStop(0, '#3a8fd9'); oc.addColorStop(.5, '#4fb4f2'); oc.addColorStop(1, '#3a8fd9');
+  g.fillStyle = oc; g.fillRect(0, 0, W, H);
+  const R = rng(23);
+  for (let k = 0; k < 9; k++) {
+    const cx = R() * W, cy = H * (.25 + R() * .5), n = 7 + Math.floor(R() * 7), blobs = [];
+    for (let j = 0; j < n; j++) blobs.push([cx + (R() - .5) * 150, cy + (R() - .5) * 80, 22 + R() * 38, 16 + R() * 26, R() * 3]);
+    g.fillStyle = '#4c9e4f'; blobs.forEach(b => { g.beginPath(); g.ellipse(b[0], b[1], b[2] + 5, b[3] + 5, b[4], 0, 7); g.fill(); });
+    g.fillStyle = '#7fd67a'; blobs.forEach(b => { g.beginPath(); g.ellipse(b[0], b[1], b[2], b[3], b[4], 0, 7); g.fill(); });
+    g.fillStyle = '#e6d48f'; const d = blobs[0]; g.beginPath(); g.ellipse(d[0], d[1], d[2] * .45, d[3] * .4, d[4], 0, 7); g.fill();
+  }
+  g.fillStyle = '#f4fbff';
+  for (let x = 0; x < W; x += 24) { g.beginPath(); g.ellipse(x, 0, 30, 30 + R() * 16, 0, 0, 7); g.fill(); g.beginPath(); g.ellipse(x, H, 30, 30 + R() * 16, 0, 0, 7); g.fill(); }
+});
+const cloudMap = canvasTex(1024, 512, (g, W, H) => {
+  const R = rng(41); g.fillStyle = 'rgba(255,255,255,.85)';
+  for (let k = 0; k < 26; k++) { const cx = R() * W, cy = H * (.18 + R() * .64); for (let j = 0; j < 4; j++) { g.beginPath(); g.ellipse(cx + j * 16, cy + (R() - .5) * 8, 28 + R() * 30, 6 + R() * 5, 0, 0, 7); g.fill(); } }
+});
+// 달 겉모습
+const moonMap = canvasTex(512, 256, (g, W, H) => {
+  g.fillStyle = '#f3e7bf'; g.fillRect(0, 0, W, H);
+  const R = rng(5);
+  g.fillStyle = 'rgba(205,190,140,.55)';
+  for (let k = 0; k < 7; k++) { g.beginPath(); g.ellipse(R() * W, H * (.25 + R() * .5), 30 + R() * 40, 18 + R() * 26, R() * 3, 0, 7); g.fill(); }
+  for (let k = 0; k < 46; k++) {
+    const x = R() * W, y = H * (.1 + R() * .8), r = 3 + R() * 11;
+    g.fillStyle = 'rgba(185,165,115,.8)'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill();
+    g.strokeStyle = 'rgba(255,250,230,.8)'; g.lineWidth = r * .3; g.beginPath(); g.arc(x, y, r * .9, Math.PI * .15, Math.PI * .85); g.stroke();
+  }
+});
+const moonBump = canvasTex(512, 256, (g, W, H) => {
+  g.fillStyle = '#808080'; g.fillRect(0, 0, W, H); const R = rng(5);
+  for (let k = 0; k < 7; k++) { R(); R(); R(); R(); R(); }
+  for (let k = 0; k < 46; k++) { const x = R() * W, y = H * (.1 + R() * .8), r = 3 + R() * 11; g.fillStyle = '#4a4a4a'; g.beginPath(); g.arc(x, y, r, 0, 7); g.fill(); g.strokeStyle = '#c8c8c8'; g.lineWidth = r * .35; g.beginPath(); g.arc(x, y, r, 0, 7); g.stroke(); }
+});
+
+function makeEarth(rad) {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.SphereGeometry(rad, 64, 40), new THREE.MeshPhongMaterial({ map: earthMap, shininess: 28, specular: 0x3a5f88 }));
+  body.rotation.z = 23.4 * DEG;
+  const clouds = new THREE.Mesh(new THREE.SphereGeometry(rad * 1.02, 48, 32), new THREE.MeshLambertMaterial({ map: cloudMap, transparent: true, depthWrite: false }));
+  clouds.rotation.z = 23.4 * DEG;
+  const atm = new THREE.Mesh(new THREE.SphereGeometry(rad * 1.22, 48, 32), rimMat(0x7cc8ff, 2.2, 0.9, 1.75)); atm.renderOrder = 1;
+  const face = faceShell(rad * 1.02);
+  g.add(body, clouds, atm, face);
+  return { g, body, clouds, atm, face };
+}
+function makeMoon(rad) {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.SphereGeometry(rad, 48, 32), new THREE.MeshPhongMaterial({ map: moonMap, bumpMap: moonBump, bumpScale: rad * 0.06, shininess: 6, specular: 0x222222 }));
+  const glow = new THREE.Mesh(new THREE.SphereGeometry(rad * 1.18, 32, 24), rimMat(0xfff1c8, 2.4, 0.5, 1.85)); glow.renderOrder = 1;
+  const face = faceShell(rad);
+  g.add(body, glow, face);
+  return { g, body, glow, face };
+}
+function makeSun(rad) {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.SphereGeometry(rad, 64, 40), new THREE.ShaderMaterial({
+    uniforms: { o: { value: 1 } }, vertexShader: RIM_VS, transparent: true,
+    fragmentShader: 'uniform float o; varying vec3 vN; varying vec3 vV; void main(){ float d = max(dot(vN, vV), 0.0); vec3 col = mix(vec3(0.96,0.45,0.10), vec3(1.0,0.76,0.25), smoothstep(0.0, 0.5, d)); col = mix(col, vec3(1.0,0.95,0.70), smoothstep(0.55, 1.0, d)); float hl = smoothstep(0.86, 1.0, dot(vN, normalize(vec3(-0.42, 0.5, 0.76)))); col += vec3(0.28,0.24,0.14) * hl; gl_FragColor = vec4(col, o); }' }));
+  const corona = new THREE.Mesh(new THREE.SphereGeometry(rad * 1.4, 48, 32), rimMat(0xffb347, 1.6, 1.1, 1.5)); corona.renderOrder = 1; body.renderOrder = 0;
+  const rays = new THREE.Group(), spin = new THREE.Group(); rays.add(spin);
+  const rayMat = new THREE.MeshBasicMaterial({ color: 0xffc23d, transparent: true });
+  for (let k = 0; k < 12; k++) {
+    const a = k * Math.PI / 6, cone = new THREE.Mesh(new THREE.ConeGeometry(rad * 0.2, rad * 0.5, 16), rayMat);
+    cone.position.set(Math.cos(a) * rad * 1.28, Math.sin(a) * rad * 1.28, -rad * 0.2); cone.rotation.z = a - Math.PI / 2; spin.add(cone);
+  }
+  const face = faceShell(rad, '#5a2a1a');
+  g.add(rays, body, corona, face);
+  return { g, body, corona, rays, spin, face, rayMat,
+    setOpacity(o) { body.material.uniforms.o.value = o; corona.material.uniforms.o.value = o; rayMat.opacity = o; face.material.opacity = o; },
+    aim(cam, time) { rays.quaternion.copy(cam.quaternion); spin.rotation.z = time * 0.12; faceToward(face, cam); } };
+}
+
+// 무대 위의 해 · 지구 · 달
+const sunC = makeSun(SUN_R), earthC = makeEarth(R_E * 1.15), moonC = makeMoon(R_M * 1.35);
+const sun = sunC.g, earth = earthC.g, moon = moonC.g;
+scene.add(sun, earth, moon);
+const sunLight = new THREE.PointLight(0xfff1d6, 1.7, 0); scene.add(sunLight);
+scene.add(new THREE.AmbientLight(0x7078c0, 0.38));
+const sunGlow = sprite(texFrom(128, (g, S) => { const gr = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2); gr.addColorStop(0, 'rgba(255,200,100,.5)'); gr.addColorStop(.4, 'rgba(255,180,80,.18)'); gr.addColorStop(1, 'rgba(255,170,60,0)'); g.fillStyle = gr; g.fillRect(0, 0, S, S); }), SUN_R * 6);
+sunGlow.material.blending = THREE.AdditiveBlending; scene.add(sunGlow);
 const ghostTex = texFrom(128, (g, S) => {
   g.setLineDash([8, 7]); g.lineWidth = 5; g.strokeStyle = 'rgba(127,231,218,.95)'; g.fillStyle = 'rgba(127,231,218,.18)';
   g.beginPath(); g.arc(S / 2, S / 2, S * 0.42, 0, 7); g.fill(); g.stroke();
@@ -544,19 +738,19 @@ function setDyn(sp, text, color) {
 const C_ECL = 0xffd96b, C_LUN = 0x7fe7da, C_NODE = 0xff86bb;
 
 // 지구 공전 길 (해 둘레)
-scene.add(disc(R_ORB * 1.25, C_ECL, 0.05));
+{ const d = disc(R_ORB * 1.25, C_ECL, 0.05); d.renderOrder = -4; scene.add(d); }
 scene.add(ring(R_ORB, 0.06, C_ECL, 0.45));
 
 // 지구 둘레
 const local = new THREE.Group(); scene.add(local);
-local.add(disc(R_MO * 1.3, C_ECL, 0.16));
+{ const d = disc(R_MO * 1.3, C_ECL, 0.16); d.renderOrder = -3; local.add(d); }
 local.add(ring(R_MO, 0.07, C_ECL, 0.55));
 local.add(ring(R_MO * 1.3, 0.05, C_ECL, 0.5));
 const eclLabel = label('지구의 길 (황도면)', '#ffd96b', 0.024); local.add(eclLabel);
 
 const nodeGroup = new THREE.Group(); nodeGroup.rotation.y = OM * DEG; local.add(nodeGroup);
 const lunar = new THREE.Group(); nodeGroup.add(lunar);
-lunar.add(disc(R_MO * 1.3, C_LUN, 0.17));
+{ const d = disc(R_MO * 1.3, C_LUN, 0.17); d.renderOrder = -2; lunar.add(d); }
 lunar.add(ring(R_MO, 0.1, C_LUN, 0.95, Math.PI, 0));
 lunar.add(ring(R_MO, 0.07, C_LUN, 0.5, Math.PI, Math.PI));
 lunar.add(ring(R_MO * 1.3, 0.05, C_LUN, 0.55));
@@ -569,6 +763,18 @@ const nodeLabels = [], nodeItems = [nodeBar];
   const b = sprite(nodeGlowTex, 1.3); b.position.set(s * R_MO, 0, 0); nodeGroup.add(b); nodeItems.push(b);
   const lb = label('두 길이 만나는 곳', '#ff86bb', 0.019); lb.position.set(s * R_MO, 0.9, 0); nodeGroup.add(lb); nodeLabels.push(lb); nodeItems.push(lb);
 });
+
+// 교점선 길게: '우주에서' 볼 때 분홍 선의 방향이 1년 내내 그대로인지 보여 줌
+const nodeLong = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, R_ORB * 2.6, 8), new THREE.MeshBasicMaterial({ color: C_NODE, transparent: true, opacity: 0.4, depthWrite: false }));
+nodeLong.rotation.z = Math.PI / 2; nodeLong.renderOrder = 1; nodeGroup.add(nodeLong);
+// 일직선 강조: 해에서 나오는 빛줄기와 퍼지는 고리
+const beamMat = new THREE.MeshBasicMaterial({ color: 0xffe08a, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false });
+const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 1, 16, 1, true), beamMat); beam.renderOrder = 5;
+const beamSoft = new THREE.Mesh(new THREE.CylinderGeometry(0.7, 0.7, 1, 16, 1, true), new THREE.MeshBasicMaterial({ color: 0xffc85a, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+beamSoft.renderOrder = 5; scene.add(beam, beamSoft);
+const ringTex = texFrom(128, (g, S) => { g.strokeStyle = 'rgba(255,226,140,1)'; g.lineWidth = S * .06; g.shadowColor = 'rgba(255,200,90,1)'; g.shadowBlur = S * .06; g.beginPath(); g.arc(S / 2, S / 2, S * .4, 0, 7); g.stroke(); });
+const pulse = sprite(ringTex, 1); pulse.material.blending = THREE.AdditiveBlending; pulse.material.depthTest = false; pulse.renderOrder = 7; scene.add(pulse);
+let prevEcl = false, impactT0 = -1e9;
 
 // 점선 동그라미까지 선 + 글자
 const dropGeo = new THREE.BufferGeometry(); dropGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
@@ -583,6 +789,7 @@ const earthUmb = new THREE.Mesh(new THREE.ConeGeometry(R_E, UMB_E, 48, 1, true),
 const earthPen = new THREE.Mesh(new THREE.CylinderGeometry(R_E + PEN_E_LEN * PEN_TAN, R_E, PEN_E_LEN, 48, 1, true), shadowMat(0.18));
 const moonUmb = new THREE.Mesh(new THREE.ConeGeometry(R_M, UMB_M, 32, 1, true), shadowMat(0.6));
 const moonPen = new THREE.Mesh(new THREE.CylinderGeometry(R_M + PEN_M_LEN * PEN_TAN, R_M, PEN_M_LEN, 32, 1, true), shadowMat(0.18));
+earthPen.renderOrder = moonPen.renderOrder = 2; earthUmb.renderOrder = moonUmb.renderOrder = 3;   // 반투명끼리 순서를 고정해 깜빡임 방지
 scene.add(earthUmb, earthPen, moonUmb, moonPen);
 const shadowLabel = label('지구 그림자', '#c9b8ff', 0.019); scene.add(shadowLabel);
 const spotTex = texFrom(64, (g, S) => { const gr = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2); gr.addColorStop(0, 'rgba(10,6,30,.95)'); gr.addColorStop(.6, 'rgba(10,6,30,.6)'); gr.addColorStop(1, 'rgba(10,6,30,0)'); g.fillStyle = gr; g.fillRect(0, 0, S, S); });
@@ -599,12 +806,12 @@ const fpCam = new THREE.PerspectiveCamera(16, 1, 0.05, 6000);
   fpScene.add(new THREE.Points(g, new THREE.PointsMaterial({ size: 2, sizeAttenuation: false, color: 0xf0ecff, transparent: true, opacity: 0.8 })));
 }
 const FP_SUN_D = 3000, FP_EARTH_D = 60.3;
-const fpSun = sprite(sunTex, 2 * FP_SUN_D * Math.tan(0.267 * DEG) * (128 / (256 * 0.33))); fpScene.add(fpSun);
+const fpSunC = makeSun(FP_SUN_D * Math.tan(0.267 * DEG)), fpSun = fpSunC.g; fpScene.add(fpSun);
 const fpSunGlow = sprite(texFrom(128, (g, S) => { const gr = g.createRadialGradient(S / 2, S / 2, 0, S / 2, S / 2, S / 2); gr.addColorStop(0, 'rgba(255,214,120,.55)'); gr.addColorStop(1, 'rgba(255,214,120,0)'); g.fillStyle = gr; g.fillRect(0, 0, S, S); }), 2 * FP_SUN_D * Math.tan(1.2 * DEG));
 fpSunGlow.material.blending = THREE.AdditiveBlending; fpScene.add(fpSunGlow);
-const earthNightTex = texFrom(256, (g, S) => drawEarthArt(g, S / 2, S / 2, S * 0.46, 'happy', 0.82));
-const fpEarthNight = sprite(earthNightTex, 2 / 0.92), fpEarthDay = sprite(earthTex.happy, 2 / 0.92);
-fpEarthDay.material.opacity = 0; fpScene.add(fpEarthNight, fpEarthDay);
+const fpEarthC = makeEarth(1), fpEarth = fpEarthC.g; fpScene.add(fpEarth);
+const fpSunLight = new THREE.DirectionalLight(0xfff1d6, 1.6); fpScene.add(fpSunLight, fpSunLight.target);
+fpScene.add(new THREE.AmbientLight(0x6a72b8, 0.3));
 const fpRing = sprite(texFrom(256, (g, S) => { g.strokeStyle = 'rgba(255,110,70,1)'; g.lineWidth = S * 0.035; g.shadowColor = 'rgba(255,90,50,1)'; g.shadowBlur = S * 0.04; g.beginPath(); g.arc(S / 2, S / 2, S * 0.43, 0, 7); g.stroke(); }), 2 / 0.92 * 1.06);
 fpScene.add(fpRing);
 const FP_UMB = 217, FP_PEN_TAN = 0.0053, FP_PEN = 140;
@@ -622,12 +829,13 @@ function updateFP(st) {
   const m = moonVec(t, P.inc), toEarth = new THREE.Vector3(-m[0], -m[2], m[1]);   // 달 → 지구 (실제 방향)
   const ls = st.ls * DEG, sDir = new THREE.Vector3(Math.cos(ls), 0, -Math.sin(ls));
   const eP = toEarth.clone().multiplyScalar(FP_EARTH_D);
-  fpEarthNight.position.copy(eP); fpEarthDay.position.copy(eP); fpRing.position.copy(eP);
+  fpEarth.position.copy(eP); fpRing.position.copy(eP);
   const lit = (1 - Math.cos(st.sepA * DEG)) / 2;
-  fpEarthDay.material.opacity = clamp((lit - 0.15) / 0.7, 0, 1);
+  setMood(fpEarthC.face, lit < 0.3 ? 'night' : 'happy');
   const dxy = Math.hypot(wrap180(st.ls - st.lm - 180), st.beta);
   fpRing.material.opacity = clamp(1 - (dxy - (EARTH_AR - SUN_AR)) / (2 * SUN_AR + .25), 0, 1) * 0.95;
   fpSun.position.copy(sDir).multiplyScalar(FP_SUN_D); fpSunGlow.position.copy(fpSun.position);
+  fpSunLight.position.copy(eP).addScaledVector(sDir, 50); fpSunLight.target.position.copy(eP);
   const anti = sDir.clone().negate(), q = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), anti);
   fpUmb.quaternion.copy(q); fpUmb.position.copy(eP).addScaledVector(anti, FP_UMB / 2);
   fpPen.quaternion.copy(q); fpPen.position.copy(eP).addScaledVector(anti, FP_PEN / 2);
@@ -653,10 +861,10 @@ function sceneCaption(st) {
   if (cur && cur !== 'lunar-pen') {
     boom = true;
     if (P.inc < 0.05) {
-      if (cur.startsWith('solar')) { big = '개기일식!'; cap = '두 길이 겹쳐 있어서 달이 늘 지구의 길 위에 있어요. 그래서 삭마다 달 그림자가 지구에 닿아요.'; }
-      else { big = '개기월식!'; cap = '두 길이 겹쳐 있어서 보름달마다 달이 지구 그림자 속으로 쏙 들어가요.'; }
-    } else if (cur.startsWith('solar')) { big = cur === 'solar-total' ? '두 길이 딱 만났어요! 개기일식' : '거의 만났어요! 부분일식'; cap = '달이 두 길이 만나는 곳 근처라 지구의 길 위에 있어요. 그래서 달 그림자가 지구에 닿아요.'; }
-    else { big = cur === 'lunar-total' ? '두 길이 딱 만났어요! 개기월식' : '거의 만났어요! 부분월식'; cap = '달이 두 길이 만나는 곳 근처라 지구 그림자 속으로 들어가요.'; }
+      if (cur.startsWith('solar')) { big = '태양–달–지구 일직선! 일식'; cap = '두 판이 겹쳐 있어서 달이 늘 노란 판 위에 있어요. 그래서 삭마다 달 그림자가 지구에 닿아요.'; }
+      else { big = '태양–지구–달 일직선! 월식'; cap = '두 판이 겹쳐 있어서 보름달마다 달이 지구 그림자 속으로 쏙 들어가요.'; }
+    } else if (cur.startsWith('solar')) { big = `태양–달–지구 일직선! ${cur === 'solar-total' ? '개기일식' : '부분일식'}`; cap = '달이 교점(두 판이 만나는 곳) 근처라 노란 판 위에 있어요. 그래서 해·달·지구가 한 줄로 서고, 달 그림자가 지구에 닿아요.'; }
+    else { big = `태양–지구–달 일직선! ${cur === 'lunar-total' ? '개기월식' : '부분월식'}`; cap = '달이 교점(두 판이 만나는 곳) 근처라 해·지구·달이 한 줄로 서고, 달이 지구 그림자 속으로 들어가요.'; }
   } else if (n && Math.abs(n.ts - t) < 0.9) {
     const b = Math.abs(n.beta).toFixed(1), ud = upDown(n.beta), before = t < keyT(n);
     if (n.type && n.type !== 'lunar-pen') {   // 곧 식이 될 순간: '비껴간다'고 하지 않음
@@ -689,11 +897,14 @@ function openScene(key) {
 document.querySelectorAll('.scene-grid button').forEach(b => b.addEventListener('click', () => openScene(b.dataset.scene)));
 
 // ---------- 카메라 (해–지구 선을 고정해서 해가 늘 왼쪽) ----------
-const cam = { az: 0, phi: Math.PI / 2 - 0.2, r: 40, shift: 6 };
+const cam = { az: 0, phi: Math.PI / 2 - 0.2, r: 40, shift: 6, fixed: false, tgtW: 0 };   // fixed: 우주 공간에 카메라 고정 (지구를 따라 돌지 않음)
 let tween = null;
-const VIEWS = { side: { az: 0, phi: Math.PI / 2 - 0.2, r: 40, shift: 6 }, tilt: { az: 0.65, phi: 1.02, r: 44, shift: 3 } };
+const VIEWS = { side: { az: 0, phi: Math.PI / 2 - 0.2, r: 40, shift: 6 }, tilt: { az: 0.65, phi: 1.02, r: 44, shift: 3 }, space: { az: 0.5, phi: 0.74, r: 90, shift: 0, fixed: true } };
 function goView(v) {
-  tween = { from: { ...cam }, to: VIEWS[v], t0: performance.now(), dur: reduceMotion ? 1 : 900 };
+  const to = { ...VIEWS[v] }, fx = !!to.fixed, thE = (sunLon(t) + 180) * DEG;
+  if (fx !== cam.fixed) { cam.az += fx ? thE : -thE; cam.fixed = fx; }   // 기준을 바꿔도 화면이 튀지 않게
+  to.tgtW = fx ? 1 : 0;
+  tween = { from: { ...cam }, to, t0: performance.now(), dur: reduceMotion ? 1 : 1100 };
   document.querySelectorAll('.views button[data-view]').forEach(b => b.classList.toggle('on', b.dataset.view === v));
 }
 document.querySelectorAll('.views button[data-view]').forEach(b => b.addEventListener('click', () => goView(b.dataset.view)));
@@ -706,26 +917,26 @@ canvas.addEventListener('pointermove', e => {
   const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
   if (fpMode) { if (pinch && ptrs.size === 2) { const [a, b] = [...ptrs.values()]; fpCam.fov = clamp(16 * pinch.d / Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), 6, 50); fpCam.updateProjectionMatrix(); } return; }
   if (ptrs.size === 1) { cam.az -= dx * 0.006; cam.phi = clamp(cam.phi - dy * 0.006, 0.05, Math.PI - 0.05); }
-  else if (pinch) { const [a, b] = [...ptrs.values()]; cam.r = clamp(pinch.r * pinch.d / Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), 8, 160); }
+  else if (pinch) { const [a, b] = [...ptrs.values()]; cam.r = clamp(pinch.r * pinch.d / Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), 8, 220); }
 });
 const endPtr = e => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = null; };
 canvas.addEventListener('pointerup', endPtr); canvas.addEventListener('pointercancel', endPtr);
-canvas.addEventListener('wheel', e => { e.preventDefault(); if (fpMode) { fpCam.fov = clamp(fpCam.fov * Math.exp(e.deltaY * 0.0012), 6, 50); fpCam.updateProjectionMatrix(); return; } tween = null; cam.r = clamp(cam.r * Math.exp(e.deltaY * 0.0012), 8, 160); }, { passive: false });
+canvas.addEventListener('wheel', e => { e.preventDefault(); if (fpMode) { fpCam.fov = clamp(fpCam.fov * Math.exp(e.deltaY * 0.0012), 6, 50); fpCam.updateProjectionMatrix(); return; } tween = null; cam.r = clamp(cam.r * Math.exp(e.deltaY * 0.0012), 8, 220); }, { passive: false });
 const earthPos = new THREE.Vector3(), moonPos = new THREE.Vector3(), ghostPos = new THREE.Vector3(), antiSun = new THREE.Vector3(), tmp = new THREE.Vector3();
 const smooth = (a, b, x) => { const k = clamp((x - a) / (b - a), 0, 1); return k * k * (3 - 2 * k); };
 function updateCamera(now, thE, dt) {
   // 삭·보름달 근처에서는 해–지구 선에 수직인 옆, 황도면 높이에서 달이 비껴가는 모습을 확대
   let want = 0;
-  if (autoCam) { const n = appMode === 'story' && pEvent ? pEvent : nearest(); if (n) want = hold > 0 || !P.playing ? (Math.abs(n.ts - t) < 0.6 ? 1 : 0) : 1 - smooth(0.35, 1.5, Math.abs(n.ts - t)); }
+  if (autoCam && !cam.fixed) { const n = appMode === 'story' && pEvent ? pEvent : nearest(); if (n) want = hold > 0 || !P.playing ? (Math.abs(n.ts - t) < 0.6 ? 1 : 0) : 1 - smooth(0.35, 1.5, Math.abs(n.ts - t)); }
   wCam = lerp(wCam, want, 1 - Math.exp(-(dt || 0.016) * 3.5));
   if (tween) {
     const k0 = clamp((now - tween.t0) / tween.dur, 0, 1), k = k0 < .5 ? 2 * k0 * k0 : 1 - Math.pow(-2 * k0 + 2, 2) / 2;
     cam.az = tween.from.az + Math.atan2(Math.sin(tween.to.az - tween.from.az), Math.cos(tween.to.az - tween.from.az)) * k;
-    cam.phi = lerp(tween.from.phi, tween.to.phi, k); cam.r = lerp(tween.from.r, tween.to.r, k); cam.shift = lerp(tween.from.shift, tween.to.shift, k);
+    cam.phi = lerp(tween.from.phi, tween.to.phi, k); cam.r = lerp(tween.from.r, tween.to.r, k); cam.shift = lerp(tween.from.shift, tween.to.shift, k); cam.tgtW = lerp(tween.from.tgtW, tween.to.tgtW, k);
     if (k0 >= 1) tween = null;
   }
   const a = camera.aspect, fit = Math.max(1, 1.12 / a) * (a < 0.9 ? 0.92 : 1);   // 좁은 화면이면 뒤로 물러나기
-  const baseT = earthPos.clone().addScaledVector(antiSun, -cam.shift * clamp((a - 0.8) / 0.35, 0, 1));
+  const baseT = earthPos.clone().addScaledVector(antiSun, -cam.shift * clamp((a - 0.8) / 0.35, 0, 1)).lerp(new THREE.Vector3(), cam.tgtW);
   // 자동 시점: 지구 뒤쪽(해 반대편) 조금 위에서 해–지구 줄을 따라 바라봄 → 달이 줄 위/아래로 지나가는 게 한눈에
   const nk = appMode === 'story' && pEvent ? pEvent : nearest(), isNew = !nk || nk.kind === 'new';
   // 달 궤도 바깥, 지구 뒤쪽 위에서 해–지구 줄을 따라 바라봄
@@ -735,10 +946,10 @@ function updateCamera(now, thE, dt) {
   const az = cam.az + Math.atan2(Math.sin(AZ - cam.az), Math.cos(AZ - cam.az)) * w;
   const phi = lerp(cam.phi, Math.PI / 2 - 0.2, w);   // 황도면보다 살짝 위 — 두 판이 납작한 타원으로 함께 보이게
   const dist = lerp(cam.r * fit, 23 * Math.max(1, 1.12 / a), w);
-  sun.material.opacity = 1 - 0.55 * w;   // 이 시점에서는 해를 조금 흐리게
-  sun.visible = !(isNew && w > 0.4);      // 해에서 보는 중이면 해 자체는 숨김
+  sunC.setOpacity(1 - 0.55 * w); sunGlow.material.opacity = 1 - 0.7 * w;   // 이 시점에서는 해를 조금 흐리게
+  sun.visible = sunGlow.visible = !(isNew && w > 0.4);      // 해에서 보는 중이면 해 자체는 숨김
   nodeItems.forEach(o => { o.visible = w < 0.4; });   // 자동 시점에서는 교점선 숨김
-  const theta = az + thE, sp = Math.sin(phi);
+  const theta = az + (cam.fixed ? 0 : thE), sp = Math.sin(phi);
   camera.position.set(target.x + dist * sp * Math.sin(theta), target.y + dist * Math.cos(phi), target.z + dist * sp * Math.cos(theta));
   camera.lookAt(target);
   $('camTag').hidden = w < 0.5; setText('camTag', isNew ? '해에서 지구를 바라보는 중' : '달 쪽에서 해를 바라보는 중');
@@ -750,12 +961,20 @@ new ResizeObserver(resize).observe(stage);
 function nearest() { let n = null; for (const e of events()) if (!n || Math.abs(e.ts - t) < Math.abs(n.ts - t)) n = e; return n; }
 const keyT = e => e.type ? e.tm : e.ts;   // 식이면 가장 깊이 가려지는 순간에서 멈춤
 const HOLD_ECLIPSE = 5.85, HOLD_SYZ = 2.8;
-function nextSyz(after) { return events().find(e => keyT(e) > after + 1e-3) || null; }
+function nextSyz(after, eclOnly) { return events().find(e => keyT(e) > after + 1e-3 && (!eclOnly || e.type)) || null; }
+// 교점선(분홍 선)과 해 방향 사이의 각도: 작으면 '식이 일어날 수 있는 시기'
+function nodeAngle(tt) { const ls = sunLon(tt); return Math.min(Math.abs(wrap180(ls - OM)), Math.abs(wrap180(ls - OM - 180))); }
+function seasonLimit() { const si = Math.sin(P.inc * DEG), sb = Math.sin(LIM.sP * DEG); return si <= sb ? 180 : Math.asin(sb / si) / DEG; }
+const fastYear = () => yearRun || (appMode === 'explore' && P.speed >= 10);   // 1년을 빠르게 돌릴 때는 식에서만 멈춤
 const EDU_LAP = 29.53, EDU_FAST = 6, EDU_SLOW = 0.16;   // 교육 모드: 한 바퀴 앞에서 출발, 멀면 빠르게, 가까우면 느리게
 function effSpeed(tt) {
   if (appMode === 'story' && pEvent) {
     const d = Math.abs(keyT(pEvent) - tt);
     return lerp(EDU_SLOW, EDU_FAST, smooth(0.25, 3.2, d) ** 1.6);
+  }
+  if (fastYear()) {
+    const e = events().find(x => x.type && Math.abs(keyT(x) - tt) < 3), d = e ? Math.abs(keyT(e) - tt) : 9;
+    return lerp(0.3, yearRun ? 13 : P.speed, smooth(0.35, 3, d) ** 1.4);
   }
   let v = P.speed;
   if (approach) v = Math.min(v, 0.7);
@@ -769,7 +988,7 @@ function advance(dt) {
   let rem = dt, guard = 0;
   while (rem > 1e-6 && guard++ < 400) {
     // 교육 모드에서는 지금 보여 주려는 그 순간에서만 멈춤
-    const eff = effSpeed(t), dd = Math.min(eff * rem, 0.05), ns = appMode === 'story' && pEvent ? (keyT(pEvent) > t + 1e-4 ? pEvent : null) : nextSyz(t);
+    const eff = effSpeed(t), dd = Math.min(eff * rem, 0.05), ns = appMode === 'story' && pEvent ? (keyT(pEvent) > t + 1e-4 ? pEvent : null) : nextSyz(t, fastYear());
     if (ns && t + dd >= keyT(ns)) { t = keyT(ns) + 1e-4; hold = ns.type ? HOLD_ECLIPSE : (appMode === 'story' ? 3 : HOLD_SYZ); holdEvent = ns; if (ns.type) eclipseCount++; approach = false; record(ns); return; }
     t += dd; rem -= dd / eff;
   }
@@ -984,12 +1203,15 @@ const anyHit = kind => e => e.kind === kind && e.type && e.type !== 'lunar-pen';
 const STEPS = [
   null,
   { title: '두 길이 기울지 않았다면?', inc: 0, view: 'space',
-    body: () => `<b class="k-ecl">지구의 길(황도면)</b>과 <b class="k-lun">달의 길(백도면)</b>이 기울지 않고 딱 겹쳐 있다고 해 볼게요. 달은 늘 지구의 길 위를 돌아요. 그래서 해 앞을 지날 때(삭)마다 해를 가리고, 지구 뒤로 갈 때(보름달)마다 지구 그림자에 들어가요. <b>매달 일식, 매달 월식!</b>`,
+    body: () => `<b class="k-ecl">황도면</b>은 지구가 해 둘레를 도는 길이 만드는 판(노란 판), <b class="k-lun">백도면</b>은 달이 지구 둘레를 도는 길이 만드는 판(하늘색 판)이에요. 두 판이 기울지 않고 딱 겹쳐 있다고 해 볼게요. 달은 늘 지구의 길 위를 돌아요. 그래서 해 앞을 지날 때(삭)마다 해를 가리고, 지구 뒤로 갈 때(보름달)마다 지구 그림자에 들어가요. <b>매달 일식, 매달 월식!</b>`,
     items: [{ label: '삭 → 일식', pred: e => e.kind === 'new', hit: true }, { label: '보름달 → 월식', pred: e => e.kind === 'full', hit: true }] },
   { title: '두 길이 5° 기울어 있으면?', inc: INC_REAL, view: 'space',
-    body: () => `실제로는 <b class="k-lun">달의 길</b>이 약 <b>5°</b> 기울어 있어요. 그래서 삭이나 보름달이 되어도 달이 지구의 길보다 위나 아래로 <b>비껴가요</b>. 두 길이 <b class="k-node">만나는 곳</b> 근처에서 삭이나 보름달이 될 때만 식이 일어나요.`,
+    body: () => `실제로는 <b class="k-lun">백도면</b>이 <b class="k-ecl">황도면</b>보다 약 <b>5°</b> 기울어 있어요. 그래서 삭이나 보름달이 되어도 달이 노란 판보다 위나 아래로 <b>비껴가요</b>. 두 판이 만나는 곳을 <b class="k-node">교점</b>(분홍 점)이라고 하는데, 교점 근처에서 삭이나 보름달이 될 때만 식이 일어나요.`,
     items: [{ label: '삭 · 비껴감', pred: isMiss('new') }, { label: '보름달 · 비껴감', pred: isMiss('full') },
             { label: '삭 · 일식', pred: isTotal('new'), alt: anyHit('new'), hit: true }, { label: '보름달 · 월식', pred: isTotal('full'), alt: anyHit('full'), hit: true }] },
+  { title: '우주에서 1년 동안 보면', inc: INC_REAL, view: 'year', year: true,
+    body: () => `이번엔 카메라를 우주 한곳에 <b>고정</b>하고 1년을 빠르게 돌려 봐요. 지구가 해 둘레를 도는 동안에도 <b class="k-lun">백도면</b>이 기울어진 방향과 <b class="k-node">교점을 잇는 분홍 선</b>의 방향은 <b>그대로</b>예요. 분홍 선이 해를 가리키는 때(타임라인의 노란 띠)는 1년에 두 번뿐이고, 그때 삭이나 보름달이 오면 식이 일어나요.`,
+    items: [] },
   { title: '지구에서 해를 올려다보면', inc: INC_REAL, view: 'earth',
     body: () => `이번엔 <b>지구에 선 사람</b>이 삭 무렵 해를 올려다본 모습이에요. 길이 기울어 있으면 달이 해의 위나 아래로 지나가서 <b>해가 그대로 보여요</b>. 두 길이 만나는 곳에서는 달이 해를 <b>완전히</b> 가려요.`,
     items: [{ label: '삭 · 비껴감', pred: isMiss('new') }, { label: '삭 · 개기일식', pred: isTotal('new'), alt: anyHit('new'), hit: true }] },
@@ -997,10 +1219,10 @@ const STEPS = [
     body: () => `이번엔 <b>달에 선 토끼</b>가 보름달 무렵 지구 쪽을 본 모습이에요. 길이 기울어 있으면 해가 지구 옆으로 보여서 <b>햇빛을 그대로 받아요</b>. 두 길이 만나는 곳에서는 지구가 해를 <b>완전히</b> 가려 달이 붉게 물들어요.`,
     items: [{ label: '보름달 · 비껴감', pred: isMiss('full') }, { label: '보름달 · 개기월식', pred: isTotal('full'), alt: anyHit('full'), hit: true }] }
 ];
-// 교육 모드: 1~4단계를 전체 화면으로 자동 재생
+// 교육 모드: 1~5단계를 전체 화면으로 자동 재생
 const LAST = STEPS.length - 1;
 let step = 1, storyPaused = false, pausedPlaying = false, appMode = 'idle', earthMain = false;
-let items = [], pIdx = 0, pEvent = null, itemClock = 0, stepDone = false, autoCamSaved = true;
+let items = [], pIdx = 0, pEvent = null, itemClock = 0, stepDone = false, autoCamSaved = true, yearRun = false, yearStart = 0;
 function renderSegs() {
   const segs = $('segs'); segs.textContent = '';
   for (let k = 1; k <= LAST; k++) {
@@ -1045,10 +1267,17 @@ function goStep(k) {
   setFP(S.view === 'moon');
   earthMain = S.view === 'earth'; $('mainObs').hidden = !earthMain;
   $('pip').hidden = true;
+  items = S.items; pIdx = 0; pEvent = null; holdEvent = null;
+  yearRun = !!S.year;
+  if (yearRun) {   // 우주에 고정된 카메라로 1월 1일부터 1년 재생
+    autoCam = false; $('autoCam').classList.remove('on');
+    goView('space');
+    yearStart = (Math.floor(t / Y) + 1) * Y; t = yearStart; hold = 0; approach = false; setPlaying(true); dip();
+    placeTimeline(); renderStep(); return;
+  }
   autoCam = true; $('autoCam').classList.add('on');
   goView('side');
-  items = S.items; pIdx = 0;
-  renderStep(); startItem();
+  placeTimeline(); renderStep(); startItem();
 }
 function itemProgress() {
   if (!pEvent) return 0;
@@ -1058,6 +1287,11 @@ function itemProgress() {
 }
 function tickStory(dt) {
   if (appMode !== 'story') return;
+  if (yearRun) {
+    if (!storyPaused && !stepDone && t >= yearStart + Y - 0.02 && hold <= 0) { stepDone = true; if (step < LAST) goStep(step + 1); else { setPlaying(false); renderStep(); } return; }
+    const sg = $('segs').children[step - 1]; if (sg) sg.firstChild.style.width = (clamp((t - yearStart) / Y, 0, 1) * 100).toFixed(1) + '%';
+    return;
+  }
   if (!storyPaused && !stepDone) {
     itemClock += dt;
     // 그 순간에서 멈춘 시간이 끝나면 다음 순간으로
@@ -1079,7 +1313,8 @@ function setMode(m) {
   stage.classList.remove('mode-idle', 'mode-story', 'mode-explore'); stage.classList.add('mode-' + m);
   $('intro').hidden = m !== 'idle'; $('storyUI').hidden = m !== 'story';
   if (m !== 'explore') setDrawer(false);
-  if (m !== 'story') { earthMain = false; $('mainObs').hidden = true; items = []; pEvent = null; }
+  if (m !== 'story') { earthMain = false; $('mainObs').hidden = true; items = []; pEvent = null; yearRun = false; }
+  placeTimeline();
 }
 function enterFullscreen() {
   try { const el = document.documentElement; if (!document.fullscreenElement && el.requestFullscreen) el.requestFullscreen().catch(() => {}); } catch (e) {}
@@ -1089,10 +1324,10 @@ function leaveFullscreen() {
 }
 function startStory() { enterFullscreen(); setMode('story'); goStep(1); }
 function toIdle() {
-  storyPaused = false; setFP(false); setMode('idle');
+  storyPaused = false; setFP(false); setMode('idle'); setSpeed(2.5);
   setInc(INC_REAL); setObs('auto'); goView('side'); hold = 0; approach = false; setPlaying(true);
 }
-function toExplore() { storyPaused = false; setFP(false); setMode('explore'); setInc(INC_REAL); setObs('auto'); setPlaying(true); }
+function toExplore() { storyPaused = false; setFP(false); setMode('explore'); setInc(INC_REAL); setObs('auto'); autoCam = true; $('autoCam').classList.add('on'); goView('side'); setPlaying(true); }
 function setDrawer(v) { $('app').classList.toggle('drawer', v); }
 $('startBtn').addEventListener('click', startStory);
 $('exploreBtn').addEventListener('click', toExplore);
@@ -1103,6 +1338,96 @@ $('storyPause').addEventListener('click', () => { if (step === LAST && stepDone)
 $('openDrawer').addEventListener('click', () => setDrawer(!$('app').classList.contains('drawer')));
 $('closeDrawer').addEventListener('click', () => setDrawer(false));
 $('toIdleBtn').addEventListener('click', toIdle);
+
+// ---------- 1월~12월 타임라인 ----------
+function placeTimeline() {
+  const box = $('tlBox'), sc = $('scrub');
+  if (appMode === 'explore') { $('ctrl').prepend(box); box.classList.remove('instory'); box.hidden = false; sc.disabled = false; }
+  else if (appMode === 'story' && yearRun) { $('storyUI').appendChild(box); box.classList.add('instory'); box.hidden = false; sc.disabled = true; }
+  else box.hidden = true;
+}
+const tlCache = { ys: -1, inc: -1, band: [], evs: [] };
+function drawTimeline() {
+  const box = $('tlBox'); if (box.hidden) return;
+  const c = $('tlc'), w = c.clientWidth, h = c.clientHeight; if (!w) return;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); }
+  const ys = Math.floor(t / Y) * Y;
+  if (tlCache.ys !== ys || tlCache.inc !== P.inc) {
+    tlCache.ys = ys; tlCache.inc = P.inc; const lim = seasonLimit(); tlCache.band = [];
+    for (let d = 0; d < Y; d += 0.5) tlCache.band.push(nodeAngle(ys + d) < lim);
+    tlCache.evs = findEvents(Math.max(0, ys - 2), ys + Y + 2).filter(e => e.type && keyT(e) >= ys && keyT(e) < ys + Y);
+    setText('tlYear', `${Math.floor(ys / Y) + 1}년째 · 1월 ~ 12월`);
+  }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+  const pad = 8, X = d => pad + d / Y * (w - 2 * pad), ty = 15;
+  g.fillStyle = 'rgba(255,249,236,.14)'; g.beginPath(); g.roundRect ? g.roundRect(pad, ty - 5, w - 2 * pad, 10, 5) : g.rect(pad, ty - 5, w - 2 * pad, 10); g.fill();
+  g.fillStyle = 'rgba(255,201,74,.62)';
+  tlCache.band.forEach((on, i) => { if (on) g.fillRect(X(i * 0.5), ty - 5, Math.max(1, X(0.5) - X(0) + 0.6), 10); });
+  g.font = `11px ${FONT}`; g.textAlign = 'center'; g.fillStyle = 'rgba(213,216,245,.8)';
+  let cum = 0;
+  for (let m = 0; m < 12; m++) { g.fillStyle = 'rgba(213,216,245,.45)'; g.fillRect(X(cum), ty + 6, 1, 4); g.fillStyle = 'rgba(213,216,245,.85)'; if (w > 360 || m % 2 === 0) g.fillText(`${m + 1}월`, X(cum + MD[m] / 2), ty + 24); cum += MD[m]; }
+  tlCache.evs.forEach(e => { const solar = e.type.startsWith('solar'); g.fillStyle = solar ? '#ffc94a' : '#ff7a59'; g.beginPath(); g.arc(X(keyT(e) - ys), solar ? ty - 10 : ty + 10, 4, 0, 7); g.fill(); });
+  const mx = X(t - ys);
+  g.fillStyle = '#fff9ec'; g.fillRect(mx - 1.5, ty - 12, 3, 24); g.beginPath(); g.arc(mx, ty, 6, 0, 7); g.fill();
+  g.strokeStyle = '#2c2448'; g.lineWidth = 2; g.beginPath(); g.arc(mx, ty, 6, 0, 7); g.stroke();
+  g.textAlign = 'left';
+  const sc = $('scrub'); if (document.activeElement !== sc) sc.value = (t - ys).toFixed(2);
+}
+$('scrub').addEventListener('input', e => { t = Math.floor(t / Y) * Y + (+e.target.value); hold = 0; approach = false; });
+function setSpeed(v) { P.speed = v; document.querySelectorAll('#speedSeg button').forEach(b => b.classList.toggle('on', +b.dataset.sp === v)); }
+document.querySelectorAll('#speedSeg button').forEach(b => b.addEventListener('click', () => { setSpeed(+b.dataset.sp); hold = Math.min(hold, 0.3); setPlaying(true); }));
+
+// ---------- 한눈에 보는 위치 (위에서 본 모습 + 옆에서 본 높이) ----------
+function drawMini(st) {
+  const cv = $('miniCv'), W = cv.clientWidth, H = cv.clientHeight; if (!W) return;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  if (cv.width !== Math.round(W * dpr) || cv.height !== Math.round(H * dpr)) { cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.fillStyle = '#10143a'; g.fillRect(0, 0, W, H);
+  const k = W / 240, top = H * 0.6;
+  g.font = `${11 * k}px ${FONT}`; g.fillStyle = 'rgba(213,216,245,.7)'; g.fillText('위에서', 6 * k, 13 * k); g.fillText('옆에서 (높이 과장)', 6 * k, top + 13 * k);
+  g.fillStyle = 'rgba(255,249,236,.12)'; g.fillRect(0, top, W, 1);
+  // 위에서 본 모습
+  const cy = top * 0.54, sx = W * 0.12, ex = W * 0.66, rO = Math.min(W * 0.2, top * 0.36);
+  g.strokeStyle = 'rgba(255,217,107,.5)'; g.setLineDash([4 * k, 4 * k]); g.lineWidth = 1.2; g.beginPath(); g.moveTo(sx, cy); g.lineTo(ex, cy); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = 'rgba(127,231,218,.7)'; g.beginPath(); g.arc(ex, cy, rO, 0, 7); g.stroke();
+  const na = (OM - st.ls) * DEG, nx = -Math.cos(na), ny = Math.sin(na);
+  g.strokeStyle = 'rgba(255,134,187,.95)'; g.lineWidth = 2 * k; g.beginPath(); g.moveTo(ex - nx * rO * 1.15, cy - ny * rO * 1.15); g.lineTo(ex + nx * rO * 1.15, cy + ny * rO * 1.15); g.stroke();
+  g.fillStyle = '#ff86bb'; [-1, 1].forEach(s => { g.beginPath(); g.arc(ex + s * nx * rO, cy + s * ny * rO, 3 * k, 0, 7); g.fill(); });
+  const D = st.D * DEG, mx = ex - Math.cos(D) * rO, my = cy + Math.sin(D) * rO;
+  drawSunArt(g, sx, cy, 12 * k, 'happy'); drawEarthArt(g, ex, cy, 10 * k, 'happy', 0); drawMoonArt(g, mx, my, 6.5 * k, 'happy');
+  // 관측자 표시: 어디서 어디를 보고 있는지
+  const obsAt = earthMain ? [ex - 10 * k, cy] : [mx + (ex - mx) / rO * 6.5 * k, my + (cy - my) / rO * 6.5 * k];
+  const lookTo = earthMain ? [sx + 16 * k, cy] : [ex, cy];
+  const ang = Math.atan2(lookTo[1] - obsAt[1], lookTo[0] - obsAt[0]);
+  g.strokeStyle = '#fff9ec'; g.fillStyle = '#fff9ec'; g.lineWidth = 2 * k;
+  g.beginPath(); g.moveTo(obsAt[0], obsAt[1]); g.lineTo(obsAt[0] + Math.cos(ang) * 18 * k, obsAt[1] + Math.sin(ang) * 18 * k); g.stroke();
+  g.beginPath(); const hx = obsAt[0] + Math.cos(ang) * 22 * k, hy = obsAt[1] + Math.sin(ang) * 22 * k;
+  g.moveTo(hx, hy); g.lineTo(hx - Math.cos(ang - .5) * 7 * k, hy - Math.sin(ang - .5) * 7 * k); g.lineTo(hx - Math.cos(ang + .5) * 7 * k, hy - Math.sin(ang + .5) * 7 * k); g.closePath(); g.fill();
+  g.beginPath(); g.arc(obsAt[0], obsAt[1], 3 * k, 0, 7); g.fill();
+  g.font = `${11 * k}px ${FONT}`; g.textAlign = 'center'; g.fillText(earthMain ? '보는 사람' : '토끼', obsAt[0], obsAt[1] + (earthMain ? 22 : -10) * k); g.textAlign = 'left';
+  // 옆에서 본 높이 (5.5°를 칸 높이의 절반쯤으로 과장)
+  const yb = top + (H - top) * 0.58, scl = (H - top) * 0.3 / 5.5;
+  g.strokeStyle = 'rgba(255,217,107,.75)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(4 * k, yb); g.lineTo(W - 4 * k, yb); g.stroke();
+  const mxs = ex - Math.cos(D) * rO, mys = yb - st.beta * scl;
+  drawSunArt(g, sx, yb, 9 * k, 'happy'); drawEarthArt(g, ex, yb, 8 * k, 'happy', 0);
+  g.strokeStyle = 'rgba(255,249,236,.6)'; g.setLineDash([2 * k, 3 * k]); g.beginPath(); g.moveTo(mxs, yb); g.lineTo(mxs, mys); g.stroke(); g.setLineDash([]);
+  drawMoonArt(g, mxs, mys, 5.5 * k, 'happy');
+  g.fillStyle = '#7fe7da'; g.font = `${11 * k}px ${FONT}`;
+  const lbl = Math.abs(st.beta) < 0.3 ? '달: 노란 판 위' : `달: ${Math.abs(st.beta).toFixed(1)}° ${upDown(st.beta)}`;
+  g.textAlign = mxs > W * 0.75 ? 'right' : 'left'; g.fillText(lbl, mxs + (mxs > W * 0.75 ? -9 : 9) * k, mys + (st.beta >= 0 ? -4 : 12) * k); g.textAlign = 'left';
+}
+
+// ---------- 우주에서 볼 때 설명 ----------
+function yearCaption(st) {
+  const cur = classify(st);
+  if (cur && cur !== 'lunar-pen') { sceneCaption(st); return; }
+  const inS = nodeAngle(t) < seasonLimit(), el = $('fpSay');
+  el.hidden = false; el.className = 'fp-say';
+  setText('fpBig', inS ? '분홍 선이 해를 가리켜요 · 식이 일어날 수 있는 시기' : '분홍 선이 해를 비껴 있어요 · 식이 없는 시기');
+  setText('fpCap', inS ? '교점이 해–지구 줄 가까이에 와요. 이때 삭이나 보름달이 되면 일식·월식이 일어나요.' : '분홍 선의 방향은 1년 내내 그대로예요. 지구가 해를 도는 동안 분홍 선이 해를 가리키는 때는 1년에 두 번뿐이에요.');
+}
 
 // ---------- 조작 ----------
 const textCache = {};
@@ -1124,7 +1449,6 @@ document.addEventListener('keydown', e => {
 
 // ---------- 매 프레임 ----------
 const Yup = new THREE.Vector3(0, 1, 0);
-let curMoonTex = 'happy', curEarthTex = 'happy';
 const viewOff = { x: 0, y: 0 };
 function update(now, dt) {
   P.visInc = lerp(P.visInc, P.inc, 1 - Math.exp(-dt * 4));
@@ -1139,7 +1463,7 @@ function update(now, dt) {
   moon.position.copy(moonPos);
   const gv = moonVec(t, 0);
   ghostPos.set(gv[0], 0, -gv[1]).multiplyScalar(R_MO).add(earthPos);
-  const showGhost = P.visInc > 0.3;
+  const showGhost = P.visInc > 0.3 && !cam.fixed;
   ghost.visible = drop.visible = ghostLabel.visible = offLabel.visible = showGhost;
   ghost.position.copy(ghostPos);
   const dp = dropGeo.attributes.position.array; dp.set([moonPos.x, moonPos.y, moonPos.z, ghostPos.x, ghostPos.y, ghostPos.z]);
@@ -1169,7 +1493,7 @@ function update(now, dt) {
   {
     const W = stage.clientWidth, H = stage.clientHeight, wide = W > 640;
     const tx = appMode === 'idle' && wide ? -Math.min(260, W * 0.2) : appMode === 'story' && wide ? -Math.min(120, W * 0.08) : 0;
-    const ty = appMode === 'story' ? Math.min(90, H * 0.1) : appMode === 'idle' && !wide ? Math.min(150, H * 0.18) : 0;
+    const ty = appMode === 'story' ? (yearRun && !wide ? -Math.min(90, H * 0.09) : Math.min(90, H * 0.1)) : appMode === 'idle' && !wide ? Math.min(150, H * 0.18) : 0;
     viewOff.x = lerp(viewOff.x, tx, 1 - Math.exp(-dt * 5)); viewOff.y = lerp(viewOff.y, ty, 1 - Math.exp(-dt * 5));
     camera.setViewOffset(W, H, viewOff.x, viewOff.y, W, H);
     fpCam.setViewOffset(W, H, 0, appMode === 'story' ? Math.min(140, H * 0.16) : 0, W, H);
@@ -1177,10 +1501,48 @@ function update(now, dt) {
 
   // 표정과 말풍선
   const md = moods(st);
-  if (md.mm !== curMoonTex) { curMoonTex = md.mm; moon.material.map = moonTex[md.mm]; moon.material.needsUpdate = true; }
-  if (md.em !== curEarthTex) { curEarthTex = md.em; earth.material.map = earthTex[md.em]; earth.material.needsUpdate = true; }
+  setMood(moonC.face, md.mm === 'red' ? 'sleepy' : md.mm); setMood(earthC.face, md.em);
+  // 월식 때 달이 붉게: 지구 그림자 속 깊이에 따라
+  {
+    const pen = clamp(1 - (st.sepA - LIM.lPar) / (LIM.lPen - LIM.lPar), 0, 1), f = clamp((LIM.lPar - st.sepA) / (LIM.lPar - LIM.lTot), 0, 1), base = 1 - 0.25 * pen;
+    const bm = moonC.body.material; bm.color.setRGB(lerp(base, 1.0, f), lerp(base, 0.42, f), lerp(base, 0.3, f)); bm.emissive.setRGB(0.45 * f, 0.1 * f, 0.04 * f);
+    moonC.glow.material.uniforms.c.value.setRGB(lerp(1, 1, f), lerp(0.94, 0.45, f), lerp(0.78, 0.3, f));
+  }
   camera.updateMatrixWorld();
-  if (earthMain) drawEarthMain(st); else if (fpMode) updateFP(st); else sceneCaption(st);
+  sunC.aim(camera, now / 1000); faceToward(earthC.face, camera); faceToward(moonC.face, camera);
+  earthC.body.rotation.y += dt * 0.25; earthC.clouds.rotation.y += dt * 0.32; moonC.body.rotation.y += dt * 0.05;
+  if (fpMode) { fpSunC.aim(fpCam, now / 1000); faceToward(fpEarthC.face, fpCam); fpEarthC.body.rotation.y += dt * 0.25; fpEarthC.clouds.rotation.y += dt * 0.32; }
+  if (earthMain) drawEarthMain(st); else if (fpMode) updateFP(st); else if (yearRun || cam.fixed) yearCaption(st); else sceneCaption(st);
+
+  // 교점 강조: 평소엔 은은하게 깜빡이고, '우주에서' 볼 때는 분홍 선을 길게. 해를 가리키면 더 밝게
+  {
+    const inS = nodeAngle(t) < seasonLimit(), puls = 1 + 0.28 * Math.sin(now / 1000 * 3.4);
+    nodeItems.forEach(o => { if (o.isSprite && o.material.map === nodeGlowTex) o.scale.set(1.5 * puls, 1.5 * puls, 1); });
+    nodeLong.visible = cam.fixed || yearRun; nodeLong.material.opacity = inS ? 0.95 : 0.35; nodeLong.scale.set(inS ? 2.2 : 1, 1, inS ? 2.2 : 1);
+  }
+  // 일직선 강조: 식이 시작되면 빛줄기 + 퍼지는 고리 + 화면 번쩍
+  {
+    const ecl = !!cur && cur !== 'lunar-pen';
+    if (ecl && !prevEcl) { impactT0 = now; const fl = $('flash'); fl.classList.remove('go'); void fl.offsetWidth; fl.classList.add('go'); const fs = $('fpSay'); fs.classList.remove('pop'); void fs.offsetWidth; fs.classList.add('pop'); }
+    prevEcl = ecl;
+    const show3d = ecl && !fpMode && !earthMain;
+    beam.visible = beamSoft.visible = pulse.visible = show3d;
+    if (show3d) {
+      const far = Math.max(earthPos.length(), moonPos.dot(antiSun)) + 3, L = far - SUN_R;
+      const qq = new THREE.Quaternion().setFromUnitVectors(Yup, antiSun);
+      [beam, beamSoft].forEach(b => { b.quaternion.copy(qq); b.position.copy(antiSun).multiplyScalar(SUN_R + L / 2); b.scale.set(1, L, 1); });
+      const wob = 0.5 + 0.5 * Math.sin(now / 1000 * 6);
+      beamMat.opacity = (0.55 + 0.35 * wob) * (1 - 0.4 * wCam); beamSoft.material.opacity = 0.16 + 0.12 * wob;
+      const ph = ((now - impactT0) / 1400) % 1, at = cur.startsWith('solar') ? earthPos : moonPos;
+      pulse.position.copy(at); const sz = (cur.startsWith('solar') ? R_E * 2.4 : R_M * 4) * (1 + ph * 3.2); pulse.scale.set(sz, sz, 1); pulse.material.opacity = 1 - ph;
+    }
+  }
+  // 한눈에 보는 위치 (지구·달에서 보는 화면일 때)
+  {
+    const showMini = (appMode === 'story' && (earthMain || fpMode)) || (appMode === 'explore' && fpMode);
+    $('miniBox').hidden = !showMini; if (showMini) drawMini(st);
+  }
+  drawTimeline();
 
   const sv = new THREE.Vector3().project(camera);
   $('sunHint').hidden = !(sv.x < -1.3 && sv.z < 1) || wCam > 0.4;
